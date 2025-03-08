@@ -1,36 +1,101 @@
 import React from 'react';
 import styled from 'styled-components';
 import WebPlayback from './WebPlayback';
-// Import images
-import likedSongsImg from '../assets/Likedsongs.jpg';
-import beatEasyImg from '../assets/BeatEasy.jpg';
-import metroBoominImg from '../assets/MetroBoomin.jpg';
-import northernLightImg from '../assets/Northernlight.jpg';
-import caughtInFireImg from '../assets/CaughtinFire.jpg';
-import someWhereImg from '../assets/SomeWhere.jpg';
-import humanImg from '../assets/Human.jpg';
-import spidermanImg from '../assets/spiderman.jpg';
-import dailyMix1Img from '../assets/Dailymix1.jpg';
-import dailyMix2Img from '../assets/Dailymix2.jpg';
-import dailyMix3Img from '../assets/Dailymix3.jpg';
-import dailyMix4Img from '../assets/Dailymix4.jpg';
-import dailyMix5Img from '../assets/Dailymix5.jpg';
 import { useStateProvider } from "../utils/StateProvider";
+
+// Define a default image URL
+const defaultImage = 'https://i.scdn.co/image/ab67616d0000b273af52c228c9619ff6298b08cd';
+
+// Define track data
+const tracks = {
+  likedSongs: {
+    uri: 'spotify:track:7qiZfU4dY1lWllzX7mPBI3',
+    title: 'Shape of You',
+    artist: 'Ed Sheeran'
+  },
+  beatEasy: {
+    uri: 'spotify:track:1mWdTewIgB3gtBM3TOSFhB',
+    title: 'Blinding Lights',
+    artist: 'The Weeknd'
+  },
+  metroBookin: {
+    uri: 'spotify:track:3nqQXoyQOWXiESFLlDF1hG',
+    title: 'Superhero',
+    artist: 'Metro Boomin'
+  },
+  northernLights: {
+    uri: 'spotify:track:0VjIjW4GlUZAMYd2vXMi3b',
+    title: 'Blinding Lights',
+    artist: 'The Weeknd'
+  },
+  caughtInFire: {
+    uri: 'spotify:track:7KXjTSCq5nL1LoYtL7XAwS',
+    title: 'STAY',
+    artist: 'The Kid LAROI'
+  },
+  somewhere: {
+    uri: 'spotify:track:2LBqCSwhJGcFQeTHMVGwy3',
+    title: 'Die For You',
+    artist: 'The Weeknd'
+  },
+  human: {
+    uri: 'spotify:track:0e4HHoOy2TuYuHEgFKbBqT',
+    title: 'Human',
+    artist: 'Rag\'n\'Bone Man'
+  },
+  spiderman: {
+    uri: 'spotify:track:6nSwOQMpl1SoTZyj9Iv7VF',
+    title: 'Sunflower',
+    artist: 'Post Malone'
+  }
+};
+
+const dailyMixes = [
+  {
+    uri: 'spotify:track:0V3wPSX9ygBnCm8psDIegu',
+    title: 'Anti-Hero',
+    artist: 'Taylor Swift'
+  },
+  {
+    uri: 'spotify:track:4fouWK6XVHhzl78KzQ1UjL',
+    title: 'MONEY',
+    artist: 'LISA'
+  },
+  {
+    uri: 'spotify:track:3DarAbFujv6eYNliUTyqtz',
+    title: 'Starboy',
+    artist: 'The Weeknd'
+  },
+  {
+    uri: 'spotify:track:1zi7xx7UVEFkmKfv06H8x0',
+    title: 'One Dance',
+    artist: 'Drake'
+  },
+  {
+    uri: 'spotify:track:7qEHsqek33rTcFNT9PFqLf',
+    title: 'Someone You Loved',
+    artist: 'Lewis Capaldi'
+  }
+];
 
 export default function Home() {
   const [{ token }] = useStateProvider();
 
   const playTrack = async (uri) => {
-    await fetch('https://api.spotify.com/v1/me/player/play', {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        uris: [uri],
-      }),
-    });
+    try {
+      await fetch('https://api.spotify.com/v1/me/player/play', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          uris: [uri],
+        }),
+      });
+    } catch (error) {
+      console.error('Error playing track:', error);
+    }
   };
 
   return (
@@ -42,37 +107,45 @@ export default function Home() {
         {/* Grid Cards Section */}
         <section className="section">
           <div className="grid-card-row">
-            <div className="card" onClick={() => playTrack('spotify:track:your_track_id_1')}>
-              <img src={likedSongsImg} alt="Liked Songs" />
-              <h3>Liked Songs</h3>
+            <div className="card" onClick={() => playTrack(tracks.likedSongs.uri)}>
+              <img src={defaultImage} alt={tracks.likedSongs.title} />
+              <h3>{tracks.likedSongs.title}</h3>
+              <p>{tracks.likedSongs.artist}</p>
             </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_track_id_2')}>
-              <img src={beatEasyImg} alt="BeatEasy" />
-              <h3>BeatEasy</h3>
+            <div className="card" onClick={() => playTrack(tracks.beatEasy.uri)}>
+              <img src={defaultImage} alt={tracks.beatEasy.title} />
+              <h3>{tracks.beatEasy.title}</h3>
+              <p>{tracks.beatEasy.artist}</p>
             </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_track_id_3')}>
-              <img src={metroBoominImg} alt="Metro Boomin" />
-              <h3>Metro Boomin</h3>
+            <div className="card" onClick={() => playTrack(tracks.metroBookin.uri)}>
+              <img src={defaultImage} alt={tracks.metroBookin.title} />
+              <h3>{tracks.metroBookin.title}</h3>
+              <p>{tracks.metroBookin.artist}</p>
             </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_track_id_4')}>
-              <img src={northernLightImg} alt="Northern Lights" />
-              <h3>Northern Lights</h3>
+            <div className="card" onClick={() => playTrack(tracks.northernLights.uri)}>
+              <img src={defaultImage} alt={tracks.northernLights.title} />
+              <h3>{tracks.northernLights.title}</h3>
+              <p>{tracks.northernLights.artist}</p>
             </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_track_id_5')}>
-              <img src={caughtInFireImg} alt="Caught in the Fire" />
-              <h3>Caught in the Fire</h3>
+            <div className="card" onClick={() => playTrack(tracks.caughtInFire.uri)}>
+              <img src={defaultImage} alt={tracks.caughtInFire.title} />
+              <h3>{tracks.caughtInFire.title}</h3>
+              <p>{tracks.caughtInFire.artist}</p>
             </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_track_id_6')}>
-              <img src={someWhereImg} alt="Somewhere" />
-              <h3>Somewhere</h3>
+            <div className="card" onClick={() => playTrack(tracks.somewhere.uri)}>
+              <img src={defaultImage} alt={tracks.somewhere.title} />
+              <h3>{tracks.somewhere.title}</h3>
+              <p>{tracks.somewhere.artist}</p>
             </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_track_id_7')}>
-              <img src={humanImg} alt="Human" />
-              <h3>Human</h3>
+            <div className="card" onClick={() => playTrack(tracks.human.uri)}>
+              <img src={defaultImage} alt={tracks.human.title} />
+              <h3>{tracks.human.title}</h3>
+              <p>{tracks.human.artist}</p>
             </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_track_id_8')}>
-              <img src={spidermanImg} alt="Spiderman" />
-              <h3>Spider-Man: Into The Spider-Verse</h3>
+            <div className="card" onClick={() => playTrack(tracks.spiderman.uri)}>
+              <img src={defaultImage} alt={tracks.spiderman.title} />
+              <h3>{tracks.spiderman.title}</h3>
+              <p>{tracks.spiderman.artist}</p>
             </div>
           </div>
         </section>
@@ -84,31 +157,13 @@ export default function Home() {
             <a href="#" className="see-all">Show all</a>
           </div>
           <div className="card-row">
-            <div className="card" onClick={() => playTrack('spotify:track:your_daily_mix_1')}>
-              <img src={dailyMix1Img} alt="Daily Mix 1" />
-              <h3>Daily Mix 1</h3>
-              <p>Artist info</p>
-            </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_daily_mix_2')}>
-              <img src={dailyMix2Img} alt="Daily Mix 2" />
-              <h3>Daily Mix 2</h3>
-              <p>Artist info</p>
-            </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_daily_mix_3')}>
-              <img src={dailyMix3Img} alt="Daily Mix 3" />
-              <h3>Daily Mix 3</h3>
-              <p>Artist info</p>
-            </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_daily_mix_4')}>
-              <img src={dailyMix4Img} alt="Daily Mix 4" />
-              <h3>Daily Mix 4</h3>
-              <p>Artist info</p>
-            </div>
-            <div className="card" onClick={() => playTrack('spotify:track:your_daily_mix_5')}>
-              <img src={dailyMix5Img} alt="Daily Mix 5" />
-              <h3>Daily Mix 5</h3>
-              <p>Artist info</p>
-            </div>
+            {dailyMixes.map((mix, index) => (
+              <div key={index} className="card" onClick={() => playTrack(mix.uri)}>
+                <img src={defaultImage} alt={mix.title} />
+                <h3>{mix.title}</h3>
+                <p>{mix.artist}</p>
+              </div>
+            ))}
           </div>
         </section>
       </main>
