@@ -1,4 +1,3 @@
-// Sidebar.jsx
 import React from "react";
 import styled from "styled-components";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
@@ -11,11 +10,11 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const handleHomeClick = () => {
-    navigate("/");
+    navigate("/spotfy");
   };
 
   const handleLikedSongsClick = () => {
-    navigate("/liked-songs"); // This route will display LikedSongs
+    navigate("/liked-songs");
   };
 
   const handleAlbumClick = () => {

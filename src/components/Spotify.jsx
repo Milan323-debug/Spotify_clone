@@ -1,3 +1,4 @@
+// filepath: c:\Users\Dell\Downloads\MILAN.HTML\SpotifyProject\spotify-clone\src\components\Spotify.jsx
 import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";

@@ -5,7 +5,8 @@ import Spotify from "./components/Spotify";
 import Album from "./components/Album";
 import Search from "./components/Search";
 import LikedSongs from "./components/LikedSongs";
-import Library from "./components/Library"; // Import the new Library component
+import Library from "./components/Library";
+import SpotFY from "./components/SpotFY"; // Import the new SpotFY component
 import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";
 
@@ -32,7 +33,8 @@ export default function App() {
             <Route path="/album" element={<Album />} />
             <Route path="/search" element={<Search />} />
             <Route path="/liked-songs" element={<LikedSongs />} />
-            <Route path="/library" element={<Library />} /> {/* New route for Library */}
+            <Route path="/library" element={<Library />} />
+            <Route path="/spotfy" element={<SpotFY />} /> {/* New route for SpotFY */}
           </Routes>
         ) : (
           <Login />

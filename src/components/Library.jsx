@@ -50,6 +50,12 @@ export default function Library() {
               )}
               <p className="track-count">{playlist.tracks.total} tracks</p>
             </div>
+            {/* Play button */}
+            <div className="play-button">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
           </div>
         ))}
       </div>
@@ -132,6 +138,24 @@ const Container = styled.div`
           font-size: 0.9rem;
           color: #b3b3b3;
         }
+      }
+
+      /* Play button styling */
+      .play-button {
+        width: 40px;
+        height: 40px;
+        background-color: #1db954; /* Spotify green */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .play-button svg {
+        width: 16px;
+        height: 16px;
+        fill: #fff; /* white triangle */
+        margin-left: 2px; /* Center the triangle horizontally */
       }
     }
   }

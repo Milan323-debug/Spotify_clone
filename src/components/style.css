@@ -1,0 +1,618 @@
+/* RESET & GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #05121f; /* Dark background */
+  color: #fff;
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 230px;
+  height: 100vh;
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-img {
+  max-width: 140px;
+  height: auto;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.sidebar-nav li {
+  margin-bottom: 15px;
+}
+
+.sidebar-nav a {
+  text-decoration: none;
+  color: #b3b3b3;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-nav a i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.sidebar-nav a:hover {
+  color: #fff;
+}
+
+/* LIBRARY SECTION */
+.library-section {
+  margin-top: 10px;
+}
+
+.library-section h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #b3b3b3;
+}
+
+.library-section ul {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.library-section ul li {
+  margin-bottom: 8px;
+}
+
+.library-section ul li a {
+  color: #b3b3b3;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.library-section ul li a:hover {
+  color: #fff;
+}
+
+.library-add {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #b3b3b3;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.library-add span {
+  font-size: 14px;
+}
+
+.library-add i {
+  font-size: 16px;
+}
+
+.library-add:hover {
+  color: #fff;
+}
+
+/* SIDEBAR FOOTER */
+.sidebar-footer {
+  margin-top: 20px;
+}
+
+.sidebar-footer a {
+  text-decoration: none;
+  color: #b3b3b3;
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.sidebar-footer a:hover {
+  color: #fff;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  margin-left: 230px; /* match sidebar width */
+  margin-right: 260px; /* reserve space for right sidebar */
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #121212;
+}
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.arrows i {
+  font-size: 18px;
+  color: #b3b3b3;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.arrows i:hover {
+  color: #fff;
+}
+
+/* SEARCH BAR */
+.search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 6px 12px;
+  width: 600px; /* Adjust the width as needed */
+  position: relative;
+  background: linear-gradient(135deg, #282828, #3e3e3e);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+}
+
+.search-bar i {
+  color: #b3b3b3;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+}
+
+.search-bar input::placeholder {
+  color: #ccc;
+}
+
+/* Hover effect on search bar */
+.search-bar:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px rgba(30,215,96,0.5);
+}
+
+/* PROFILE AREA */
+.profile-area {
+  display: flex;
+  align-items: center;
+}
+
+.profile-name {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.profile-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* FILTER NAV (All, Music, Podcasts) */
+.filter-nav {
+  margin-bottom: 20px;
+}
+
+.filter-nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+.filter-nav ul li {
+  list-style: none;
+}
+
+.filter-nav ul li a {
+  text-decoration: none;
+  color: #b3b3b3;
+  font-size: 14px;
+  padding-bottom: 4px;
+  position: relative;
+}
+
+.filter-nav ul li a.active {
+  color: #fff;
+  font-weight: bold;
+}
+
+.filter-nav ul li a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #1db954; /* Spotify green */
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 30px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-header h2 {
+  font-size: 20px;
+}
+
+.see-all {
+  font-size: 14px;
+  color: #b3b3b3;
+  text-decoration: none;
+}
+
+.see-all:hover {
+  color: #fff;
+}
+
+/* GRID CARD ROW (2 rows x 4 columns) */
+.grid-card-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Horizontal card row (for "Made For..." etc.) */
+.card-row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto; 
+  padding-bottom: 10px;
+}
+
+/* CARDS */
+.card {
+  background-color: #181818;
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: left;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.card p {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.card:hover {
+  background-color: #282828;
+  transform: scale(1.05);
+}
+
+/* RIGHT SIDEBAR: HUMMINGBIRD SECTION */
+.hummingbird-section {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 260px; /* Adjust to your desired width */
+  height: 100vh; /* initial height */
+  background-color: #040306; 
+  overflow: hidden; /* hide any overflow if video extends */
+  padding: 0; /* remove padding so video can fill entire sidebar */
+  display: flex;
+  flex-direction: column;
+  /* Allow resizing to change height */
+  resize: vertical; /* optional: CSS built-in (may not work in all browsers) */
+}
+
+.hummingbird-section h2 {
+  font-size: 16px;
+  margin: 10px 20px;
+  color: #fff;
+}
+
+/* Container for the video */
+.hummingbird-video {
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+
+/* The video element itself */
+.hummingbird-vid-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+  transition: filter 0.3s ease;
+}
+
+.hummingbird-video:hover .hummingbird-vid-element {
+  filter: brightness(1);
+}
+
+/* Optional text overlay */
+.hummingbird-overlay-text {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  pointer-events: none;
+}
+
+/* Resizer Handle */
+.resizer {
+  height: 8px;
+  background: #1db954; /* A contrasting color for the handle */
+  cursor: ns-resize;
+  width: 100%;
+}
+
+
+/* FOOTER (PLAYER) */
+.player-footer {
+  position: fixed;
+  bottom: 0;
+  left: 230px;  /* match the left sidebar width */
+  right: 260px; /* match the right sidebar width */
+  background-color: #181818;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* space out left, center, right sections */
+  z-index: 10; /* ensure it stays on top if needed */
+}
+
+/* Player Left: Song cover + info */
+.player-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 25%;
+}
+
+.song-cover {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.song-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 120px; /* limit text area */
+  overflow: hidden;
+}
+
+.song-title {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.song-artist {
+  font-size: 12px;
+  color: #b3b3b3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Heart icon */
+.heart-icon {
+  font-size: 18px;
+  color: #b3b3b3;
+  cursor: pointer;
+}
+
+.heart-icon:hover {
+  color: #1db954;
+}
+
+/* Player Center: Playback controls + progress bar */
+.player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  gap: 4px;
+}
+
+/* Controls row (shuffle, prev, play, next, repeat) */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Icon style */
+.control-icon {
+  font-size: 18px;
+  color: #b3b3b3;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.control-icon:hover {
+  color: #fff;
+}
+
+/* Play/pause icon a bit bigger for emphasis */
+.play-pause-btn {
+  font-size: 28px !important;
+}
+
+/* Progress bar row */
+.progress-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px; /* adjust as needed */
+  gap: 8px;
+}
+
+.current-time, .total-time {
+  font-size: 12px;
+  color: #b3b3b3;
+  min-width: 30px; /* to keep time from shifting layout */
+  text-align: center;
+}
+
+/* Progress bar style */
+.progress-bar {
+  flex: 1;
+  cursor: pointer;
+  height: 4px;
+  background-color: #535353;
+  border-radius: 2px;
+  
+}
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #fff;
+  margin-top: -4px; /* center the thumb vertically */
+  cursor: pointer;
+}
+
+.progress-bar:hover::-webkit-slider-thumb {
+  background: #1db954; /* highlight color on hover */
+}
+
+/* Player Right: queue, connect device, volume */
+.player-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 25%;
+  justify-content: flex-end;
+}
+
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.volume-slider {
+  width: 80px;
+  cursor: pointer;
+  
+  background-color: #535353;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #fff;
+  margin-top: -4px;
+  cursor: pointer;
+}
+
+.volume-slider:hover::-webkit-slider-thumb {
+  background: #1db954;
+  
+}
+
+/* Hover effect for icons on the right side */
+.player-right .control-icon:hover {
+  color: #fff;
+}
+
+/* LIBRARY LIST (Images + Titles in Sidebar) */
+.library-list {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.library-list li {
+  margin-bottom: 8px;
+}
+
+.library-list a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: #b3b3b3;
+  padding: 4px 0;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.library-list a:hover {
+  background-color: #282828;
+  color: #fff;
+}
+
+.library-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.library-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.library-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.library-subtitle {
+  font-size: 12px;
+  color: #b3b3b3;
+}

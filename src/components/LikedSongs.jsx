@@ -101,7 +101,9 @@ export default function Album() {
                     className="track__play"
                     onClick={() => playTrack(track.uri)}
                   >
-                    ▶
+                    <svg viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
                   </button>
                 </div>
               );
@@ -233,10 +235,20 @@ const Container = styled.div`
           width: 2rem;
           height: 2rem;
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           transition: background-color 0.2s ease-in-out;
 
           &:hover {
             background-color: #1ed760;
+          }
+
+          svg {
+            width: 16px;
+            height: 16px;
+            fill: #fff; /* white triangle */
+            margin-left: 2px; /* Center the triangle horizontally */
           }
         }
       }
