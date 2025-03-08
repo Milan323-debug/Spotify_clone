@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: spotify-clone-milan
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_SPOTIFY_CLIENT_ID
+        value: d874b4de31774852afb7a50dc927bc2a
+      - key: REACT_APP_REDIRECT_URI
+        value: https://spotify-clone-milan.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html 
