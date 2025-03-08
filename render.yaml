@@ -2,7 +2,6 @@ services:
   - type: web
     name: spotify-clone-milan
     env: static
-    rootDir: spotify-clone
     buildCommand: npm install && npm run build
     staticPublishPath: build
     envVars:
