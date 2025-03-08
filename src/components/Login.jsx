@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import spotifyLogo from '../assets/Spotify_Full_Logo_RGB_Black.png';
 
 export default function Login() {
     const handleClick = () => {
         const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-        const redirect_uri = process.env.REACT_APP_REDIRECT_URI + '/';
+        const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
         const api_url = "https://accounts.spotify.com/authorize";
         const scopes = [
             "user-read-email", 
@@ -23,7 +24,7 @@ export default function Login() {
     
     return (
         <Container>
-            <img src="/images/Spotify_Full_Logo_RGB_Black.png" alt="Spotify" />
+            <img src={spotifyLogo} alt="Spotify" />
             <button onClick={handleClick}>Login with Spotify</button>
         </Container>
     );
