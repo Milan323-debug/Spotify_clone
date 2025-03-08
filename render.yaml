@@ -2,8 +2,9 @@ services:
   - type: web
     name: spotify-clone-milan
     env: static
+    rootDir: spotify-clone
     buildCommand: npm install && npm run build
-    staticPublishPath: ./build
+    staticPublishPath: build
     envVars:
       - key: REACT_APP_SPOTIFY_CLIENT_ID
         value: d874b4de31774852afb7a50dc927bc2a
