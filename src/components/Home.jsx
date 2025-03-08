@@ -5,51 +5,72 @@ import { useStateProvider } from "../utils/StateProvider";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { FaPlay } from 'react-icons/fa';
 
-// Define a default image URL
-const defaultImage = 'https://i.scdn.co/image/ab67616d0000b273af52c228c9619ff6298b08cd';
+// Import images
+import likedSongsImg from '../assets/Likedsongs.jpg';
+import beatEasyImg from '../assets/BeatEasy.jpg';
+import metroBoominImg from '../assets/MetroBoomin.jpg';
+import northernLightImg from '../assets/Northernlight.jpg';
+import caughtInFireImg from '../assets/CaughtinFire.jpg';
+import someWhereImg from '../assets/SomeWhere.jpg';
+import humanImg from '../assets/Human.jpg';
+import spidermanImg from '../assets/spiderman.jpg';
+import dailyMix1Img from '../assets/Dailymix1.jpg';
+import dailyMix2Img from '../assets/Dailymix2.jpg';
+import dailyMix3Img from '../assets/Dailymix3.jpg';
+import dailyMix4Img from '../assets/Dailymix4.jpg';
+import dailyMix5Img from '../assets/Dailymix5.jpg';
 
 // Define track data
 const tracks = {
   likedSongs: {
     uri: 'spotify:track:7qiZfU4dY1lWllzX7mPBI3',
     title: 'Shape of You',
-    artist: 'Ed Sheeran'
+    artist: 'Ed Sheeran',
+    image: likedSongsImg
   },
   beatEasy: {
     uri: 'spotify:track:1mWdTewIgB3gtBM3TOSFhB',
     title: 'Blinding Lights',
-    artist: 'The Weeknd'
+    artist: 'The Weeknd',
+    image: beatEasyImg
   },
   metroBookin: {
     uri: 'spotify:track:3nqQXoyQOWXiESFLlDF1hG',
     title: 'Superhero',
-    artist: 'Metro Boomin'
+    artist: 'Metro Boomin',
+    image: metroBoominImg
   },
   northernLights: {
     uri: 'spotify:track:0VjIjW4GlUZAMYd2vXMi3b',
     title: 'Blinding Lights',
-    artist: 'The Weeknd'
+    artist: 'The Weeknd',
+    image: northernLightImg
   },
   caughtInFire: {
     uri: 'spotify:track:7KXjTSCq5nL1LoYtL7XAwS',
     title: 'STAY',
-    artist: 'The Kid LAROI'
+    artist: 'The Kid LAROI',
+    image: caughtInFireImg
   },
   somewhere: {
     uri: 'spotify:track:2LBqCSwhJGcFQeTHMVGwy3',
     title: 'Die For You',
-    artist: 'The Weeknd'
+    artist: 'The Weeknd',
+    image: someWhereImg
   },
   human: {
     uri: 'spotify:track:0e4HHoOy2TuYuHEgFKbBqT',
     title: 'Human',
-    artist: 'Rag\'n\'Bone Man'
+    artist: 'Rag\'n\'Bone Man',
+    image: humanImg
   },
   spiderman: {
     uri: 'spotify:track:6nSwOQMpl1SoTZyj9Iv7VF',
     title: 'Sunflower',
-    artist: 'Post Malone'
+    artist: 'Post Malone',
+    image: spidermanImg
   }
 };
 
@@ -57,44 +78,86 @@ const dailyMixes = [
   {
     uri: 'spotify:track:0V3wPSX9ygBnCm8psDIegu',
     title: 'Anti-Hero',
-    artist: 'Taylor Swift'
+    artist: 'Taylor Swift',
+    image: dailyMix1Img
   },
   {
     uri: 'spotify:track:4fouWK6XVHhzl78KzQ1UjL',
     title: 'MONEY',
-    artist: 'LISA'
+    artist: 'LISA',
+    image: dailyMix2Img
   },
   {
     uri: 'spotify:track:3DarAbFujv6eYNliUTyqtz',
     title: 'Starboy',
-    artist: 'The Weeknd'
+    artist: 'The Weeknd',
+    image: dailyMix3Img
   },
   {
     uri: 'spotify:track:1zi7xx7UVEFkmKfv06H8x0',
     title: 'One Dance',
-    artist: 'Drake'
+    artist: 'Drake',
+    image: dailyMix4Img
   },
   {
     uri: 'spotify:track:7qEHsqek33rTcFNT9PFqLf',
     title: 'Someone You Loved',
-    artist: 'Lewis Capaldi'
+    artist: 'Lewis Capaldi',
+    image: dailyMix5Img
   }
 ];
 
 export default function Home() {
   const [{ token }] = useStateProvider();
   const [isLoading, setIsLoading] = useState(true);
+  const [activeDevice, setActiveDevice] = useState(null);
 
   useEffect(() => {
-    // Simulate a small delay to ensure components are mounted
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const getDevices = async () => {
+      try {
+        const response = await fetch('https://api.spotify.com/v1/me/player/devices', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        const webPlayback = data.devices.find(device => device.name === 'Spotify Clone Web Player');
+        if (webPlayback) {
+          setActiveDevice(webPlayback.id);
+        }
+      } catch (error) {
+        console.error('Error getting devices:', error);
+      }
+    };
+    if (token) getDevices();
+  }, [token]);
+
   const playTrack = async (uri) => {
+    if (!activeDevice) {
+      console.error('No active device found');
+      return;
+    }
+
     try {
+      await fetch('https://api.spotify.com/v1/me/player', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          device_ids: [activeDevice],
+          play: false,
+        }),
+      });
+
       await fetch('https://api.spotify.com/v1/me/player/play', {
         method: 'PUT',
         headers: {
@@ -118,6 +181,19 @@ export default function Home() {
     );
   }
 
+  const Card = ({ track, onClick }) => (
+    <div className="card" onClick={onClick}>
+      <div className="card-image-container">
+        <img src={track.image} alt={track.title} />
+        <button className="play-button">
+          <FaPlay />
+        </button>
+      </div>
+      <h3>{track.title}</h3>
+      <p>{track.artist}</p>
+    </div>
+  );
+
   return (
     <Container>
       <div className="spotify__body">
@@ -126,56 +202,17 @@ export default function Home() {
           <Navbar />
           <div className="body__contents">
             <div className="main-content">
-              {/* Web Playback */}
               <WebPlayback />
 
-              {/* Grid Cards Section */}
               <section className="section">
+                <h2 className="section-title">Featured Tracks</h2>
                 <div className="grid-card-row">
-                  <div className="card" onClick={() => playTrack(tracks.likedSongs.uri)}>
-                    <img src={defaultImage} alt={tracks.likedSongs.title} />
-                    <h3>{tracks.likedSongs.title}</h3>
-                    <p>{tracks.likedSongs.artist}</p>
-                  </div>
-                  <div className="card" onClick={() => playTrack(tracks.beatEasy.uri)}>
-                    <img src={defaultImage} alt={tracks.beatEasy.title} />
-                    <h3>{tracks.beatEasy.title}</h3>
-                    <p>{tracks.beatEasy.artist}</p>
-                  </div>
-                  <div className="card" onClick={() => playTrack(tracks.metroBookin.uri)}>
-                    <img src={defaultImage} alt={tracks.metroBookin.title} />
-                    <h3>{tracks.metroBookin.title}</h3>
-                    <p>{tracks.metroBookin.artist}</p>
-                  </div>
-                  <div className="card" onClick={() => playTrack(tracks.northernLights.uri)}>
-                    <img src={defaultImage} alt={tracks.northernLights.title} />
-                    <h3>{tracks.northernLights.title}</h3>
-                    <p>{tracks.northernLights.artist}</p>
-                  </div>
-                  <div className="card" onClick={() => playTrack(tracks.caughtInFire.uri)}>
-                    <img src={defaultImage} alt={tracks.caughtInFire.title} />
-                    <h3>{tracks.caughtInFire.title}</h3>
-                    <p>{tracks.caughtInFire.artist}</p>
-                  </div>
-                  <div className="card" onClick={() => playTrack(tracks.somewhere.uri)}>
-                    <img src={defaultImage} alt={tracks.somewhere.title} />
-                    <h3>{tracks.somewhere.title}</h3>
-                    <p>{tracks.somewhere.artist}</p>
-                  </div>
-                  <div className="card" onClick={() => playTrack(tracks.human.uri)}>
-                    <img src={defaultImage} alt={tracks.human.title} />
-                    <h3>{tracks.human.title}</h3>
-                    <p>{tracks.human.artist}</p>
-                  </div>
-                  <div className="card" onClick={() => playTrack(tracks.spiderman.uri)}>
-                    <img src={defaultImage} alt={tracks.spiderman.title} />
-                    <h3>{tracks.spiderman.title}</h3>
-                    <p>{tracks.spiderman.artist}</p>
-                  </div>
+                  {Object.values(tracks).map((track, index) => (
+                    <Card key={index} track={track} onClick={() => playTrack(track.uri)} />
+                  ))}
                 </div>
               </section>
 
-              {/* Made For You Section */}
               <section className="section">
                 <div className="section-header">
                   <h2>Made For You</h2>
@@ -183,11 +220,7 @@ export default function Home() {
                 </div>
                 <div className="card-row">
                   {dailyMixes.map((mix, index) => (
-                    <div key={index} className="card" onClick={() => playTrack(mix.uri)}>
-                      <img src={defaultImage} alt={mix.title} />
-                      <h3>{mix.title}</h3>
-                      <p>{mix.artist}</p>
-                    </div>
+                    <Card key={index} track={mix} onClick={() => playTrack(mix.uri)} />
                   ))}
                 </div>
               </section>
@@ -224,7 +257,6 @@ const Container = styled.div`
     overflow: auto;
     &::-webkit-scrollbar {
       width: 0.7rem;
-      max-height: 2rem;
       &-thumb {
         background-color: rgba(255, 255, 255, 0.6);
       }
@@ -254,25 +286,35 @@ const Container = styled.div`
   }
 
   .section {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-size: 28px;
+    color: white;
+    margin-bottom: 24px;
   }
 
   .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-  }
+    margin-bottom: 24px;
 
-  .section-header h2 {
-    font-size: 20px;
-    color: white;
+    h2 {
+      font-size: 28px;
+      color: white;
+    }
   }
 
   .see-all {
     font-size: 14px;
     color: #b3b3b3;
     text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    
     &:hover {
       color: white;
     }
@@ -280,13 +322,13 @@ const Container = styled.div`
 
   .grid-card-row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
   }
 
   .card-row {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     overflow-x: auto;
     padding-bottom: 10px;
     &::-webkit-scrollbar {
@@ -300,33 +342,79 @@ const Container = styled.div`
   .card {
     background-color: rgba(24, 24, 24, 0.8);
     border-radius: 8px;
-    padding: 15px;
-    text-align: left;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding: 16px;
+    transition: all 0.3s ease;
     cursor: pointer;
-
-    img {
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-
-    h3 {
-      font-size: 14px;
-      margin-bottom: 6px;
-      color: white;
-    }
-
-    p {
-      font-size: 12px;
-      color: #b3b3b3;
-    }
 
     &:hover {
       background-color: rgba(40, 40, 40, 0.8);
-      transform: scale(1.02);
+      transform: translateY(-5px);
+
+      .play-button {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-image-container {
+      position: relative;
+      width: 100%;
+      margin-bottom: 16px;
+
+      img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .play-button {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #1db954;
+        border: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #1ed760;
+          transform: scale(1.1) translateY(0);
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+          margin-left: 2px;
+        }
+      }
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    p {
+      font-size: 14px;
+      color: #b3b3b3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `; 
