@@ -1,10 +1,11 @@
+// filepath: c:\Users\Dell\Downloads\MILAN.HTML\SpotifyProject\spotify-clone\src\components\Login.jsx
 import React from 'react';
 import styled from 'styled-components';
 
 export default function Login() {
     const handleClick = () => {
-        const client_id = 'd874b4de31774852afb7a50dc927bc2a';
-        const redirect_uri = 'http://localhost:3000/';
+        const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+        const redirect_uri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
         const api_url = "https://accounts.spotify.com/authorize";
         const scopes = ["user-read-email", 
             "user-read-private",
@@ -45,4 +46,5 @@ const Container = styled.div`
   background-color: black;
   color:#49f585;
   font-size: 1.4rem;
-  cursor: pointer;`;
+  cursor: pointer;
+`;
