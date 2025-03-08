@@ -13,6 +13,8 @@ export default function Login() {
             "user-read-playback-state",
             "user-modify-playback-state",
             "user-read-currently-playing",
+            "streaming",
+            "app-remote-control",
             "user-read-playback-position",
             "user-top-read",
             "user-read-recently-played"
