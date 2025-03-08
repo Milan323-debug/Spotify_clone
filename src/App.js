@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import Spotify from "./components/Spotify";
 import Album from "./components/Album";
@@ -27,17 +27,19 @@ export default function App() {
   return (
     <Router>
       <div>
-        {token ? (
+        {!token ? (
+          <Login />
+        ) : (
           <Routes>
-            <Route path="/" element={<Spotify />} />
+            <Route path="/" element={<Navigate to="/home" replace />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/spotify" element={<Spotify />} />
             <Route path="/album" element={<Album />} />
             <Route path="/search" element={<Search />} />
             <Route path="/liked-songs" element={<LikedSongs />} />
             <Route path="/library" element={<Library />} />
+            <Route path="*" element={<Navigate to="/home" replace />} />
           </Routes>
-        ) : (
-          <Login />
         )}
       </div>
     </Router>

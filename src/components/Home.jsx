@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import WebPlayback from './WebPlayback';
 import { useStateProvider } from "../utils/StateProvider";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 // Define a default image URL
 const defaultImage = 'https://i.scdn.co/image/ab67616d0000b273af52c228c9619ff6298b08cd';
@@ -80,6 +83,15 @@ const dailyMixes = [
 
 export default function Home() {
   const [{ token }] = useStateProvider();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a small delay to ensure components are mounted
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const playTrack = async (uri) => {
     try {
@@ -98,86 +110,147 @@ export default function Home() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <Container>
+        <div className="loading">Loading...</div>
+      </Container>
+    );
+  }
+
   return (
     <Container>
-      <main className="main-content">
-        {/* Web Playback */}
-        <WebPlayback />
+      <div className="spotify__body">
+        <Sidebar />
+        <div className="body">
+          <Navbar />
+          <div className="body__contents">
+            <div className="main-content">
+              {/* Web Playback */}
+              <WebPlayback />
 
-        {/* Grid Cards Section */}
-        <section className="section">
-          <div className="grid-card-row">
-            <div className="card" onClick={() => playTrack(tracks.likedSongs.uri)}>
-              <img src={defaultImage} alt={tracks.likedSongs.title} />
-              <h3>{tracks.likedSongs.title}</h3>
-              <p>{tracks.likedSongs.artist}</p>
-            </div>
-            <div className="card" onClick={() => playTrack(tracks.beatEasy.uri)}>
-              <img src={defaultImage} alt={tracks.beatEasy.title} />
-              <h3>{tracks.beatEasy.title}</h3>
-              <p>{tracks.beatEasy.artist}</p>
-            </div>
-            <div className="card" onClick={() => playTrack(tracks.metroBookin.uri)}>
-              <img src={defaultImage} alt={tracks.metroBookin.title} />
-              <h3>{tracks.metroBookin.title}</h3>
-              <p>{tracks.metroBookin.artist}</p>
-            </div>
-            <div className="card" onClick={() => playTrack(tracks.northernLights.uri)}>
-              <img src={defaultImage} alt={tracks.northernLights.title} />
-              <h3>{tracks.northernLights.title}</h3>
-              <p>{tracks.northernLights.artist}</p>
-            </div>
-            <div className="card" onClick={() => playTrack(tracks.caughtInFire.uri)}>
-              <img src={defaultImage} alt={tracks.caughtInFire.title} />
-              <h3>{tracks.caughtInFire.title}</h3>
-              <p>{tracks.caughtInFire.artist}</p>
-            </div>
-            <div className="card" onClick={() => playTrack(tracks.somewhere.uri)}>
-              <img src={defaultImage} alt={tracks.somewhere.title} />
-              <h3>{tracks.somewhere.title}</h3>
-              <p>{tracks.somewhere.artist}</p>
-            </div>
-            <div className="card" onClick={() => playTrack(tracks.human.uri)}>
-              <img src={defaultImage} alt={tracks.human.title} />
-              <h3>{tracks.human.title}</h3>
-              <p>{tracks.human.artist}</p>
-            </div>
-            <div className="card" onClick={() => playTrack(tracks.spiderman.uri)}>
-              <img src={defaultImage} alt={tracks.spiderman.title} />
-              <h3>{tracks.spiderman.title}</h3>
-              <p>{tracks.spiderman.artist}</p>
-            </div>
-          </div>
-        </section>
+              {/* Grid Cards Section */}
+              <section className="section">
+                <div className="grid-card-row">
+                  <div className="card" onClick={() => playTrack(tracks.likedSongs.uri)}>
+                    <img src={defaultImage} alt={tracks.likedSongs.title} />
+                    <h3>{tracks.likedSongs.title}</h3>
+                    <p>{tracks.likedSongs.artist}</p>
+                  </div>
+                  <div className="card" onClick={() => playTrack(tracks.beatEasy.uri)}>
+                    <img src={defaultImage} alt={tracks.beatEasy.title} />
+                    <h3>{tracks.beatEasy.title}</h3>
+                    <p>{tracks.beatEasy.artist}</p>
+                  </div>
+                  <div className="card" onClick={() => playTrack(tracks.metroBookin.uri)}>
+                    <img src={defaultImage} alt={tracks.metroBookin.title} />
+                    <h3>{tracks.metroBookin.title}</h3>
+                    <p>{tracks.metroBookin.artist}</p>
+                  </div>
+                  <div className="card" onClick={() => playTrack(tracks.northernLights.uri)}>
+                    <img src={defaultImage} alt={tracks.northernLights.title} />
+                    <h3>{tracks.northernLights.title}</h3>
+                    <p>{tracks.northernLights.artist}</p>
+                  </div>
+                  <div className="card" onClick={() => playTrack(tracks.caughtInFire.uri)}>
+                    <img src={defaultImage} alt={tracks.caughtInFire.title} />
+                    <h3>{tracks.caughtInFire.title}</h3>
+                    <p>{tracks.caughtInFire.artist}</p>
+                  </div>
+                  <div className="card" onClick={() => playTrack(tracks.somewhere.uri)}>
+                    <img src={defaultImage} alt={tracks.somewhere.title} />
+                    <h3>{tracks.somewhere.title}</h3>
+                    <p>{tracks.somewhere.artist}</p>
+                  </div>
+                  <div className="card" onClick={() => playTrack(tracks.human.uri)}>
+                    <img src={defaultImage} alt={tracks.human.title} />
+                    <h3>{tracks.human.title}</h3>
+                    <p>{tracks.human.artist}</p>
+                  </div>
+                  <div className="card" onClick={() => playTrack(tracks.spiderman.uri)}>
+                    <img src={defaultImage} alt={tracks.spiderman.title} />
+                    <h3>{tracks.spiderman.title}</h3>
+                    <p>{tracks.spiderman.artist}</p>
+                  </div>
+                </div>
+              </section>
 
-        {/* Made For You Section */}
-        <section className="section">
-          <div className="section-header">
-            <h2>Made For You</h2>
-            <a href="#" className="see-all">Show all</a>
+              {/* Made For You Section */}
+              <section className="section">
+                <div className="section-header">
+                  <h2>Made For You</h2>
+                  <a href="#" className="see-all">Show all</a>
+                </div>
+                <div className="card-row">
+                  {dailyMixes.map((mix, index) => (
+                    <div key={index} className="card" onClick={() => playTrack(mix.uri)}>
+                      <img src={defaultImage} alt={mix.title} />
+                      <h3>{mix.title}</h3>
+                      <p>{mix.artist}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
           </div>
-          <div className="card-row">
-            {dailyMixes.map((mix, index) => (
-              <div key={index} className="card" onClick={() => playTrack(mix.uri)}>
-                <img src={defaultImage} alt={mix.title} />
-                <h3>{mix.title}</h3>
-                <p>{mix.artist}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </main>
+        </div>
+      </div>
+      <div className="spotify__footer">
+        <Footer />
+      </div>
     </Container>
   );
 }
 
 const Container = styled.div`
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 85vh 15vh;
+
+  .spotify__body {
+    display: grid;
+    grid-template-columns: 15vw 85vw;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 1));
+    background-color: rgb(32, 87, 100);
+  }
+
+  .body {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 0.7rem;
+      max-height: 2rem;
+      &-thumb {
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+
+  .body__contents {
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    overflow: auto;
+  }
+
   .main-content {
-    margin-left: 230px;
-    margin-right: 260px;
     padding: 20px;
-    min-height: 100vh;
-    background-color: #121212;
+    background-color: transparent;
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    font-size: 24px;
+    background: #121212;
   }
 
   .section {
@@ -207,7 +280,7 @@ const Container = styled.div`
 
   .grid-card-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
   }
 
@@ -216,19 +289,26 @@ const Container = styled.div`
     gap: 20px;
     overflow-x: auto;
     padding-bottom: 10px;
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+      &-thumb {
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+    }
   }
 
   .card {
-    background-color: #181818;
-    width: 100%;
+    background-color: rgba(24, 24, 24, 0.8);
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px;
     text-align: left;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 
     img {
       width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
       border-radius: 4px;
       margin-bottom: 10px;
     }
@@ -245,8 +325,8 @@ const Container = styled.div`
     }
 
     &:hover {
-      background-color: #282828;
-      transform: scale(1.05);
+      background-color: rgba(40, 40, 40, 0.8);
+      transform: scale(1.02);
     }
   }
 `; 
