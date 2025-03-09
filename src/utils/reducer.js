@@ -1,13 +1,13 @@
-
 import { reducerCases } from "./Constants";
 
 export const initialState = {
   token: null,
   userInfo: null,
   playlists: [],
-  selectedPlaylistId: "7hQZBInBm5nLyvVJtQE19S", // Example playlist ID
-  selectedPlaylist: null,
+  currentPlaying: null,
   playerState: false,
+  selectedPlaylist: null,
+  selectedPlaylistId: "37i9dQZF1E37jI1gmJQ4i4",
 };
 
 const reducer = (state, action) => {
