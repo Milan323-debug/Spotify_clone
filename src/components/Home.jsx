@@ -7,8 +7,20 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { FaPlay } from 'react-icons/fa';
 
-// Default image as fallback
-const defaultImage = 'https://i.scdn.co/image/ab67616d0000b273af52c228c9619ff6298b08cd';
+// Import images
+import likedSongsImg from '../assets/Likedsongs.jpg';
+import beatEasyImg from '../assets/BeatEasy.jpg';
+import metroBoominImg from '../assets/MetroBoomin.jpg';
+import northernLightImg from '../assets/Northernlight.jpg';
+import caughtInFireImg from '../assets/CaughtinFire.jpg';
+import someWhereImg from '../assets/SomeWhere.jpg';
+import humanImg from '../assets/Human.jpg';
+import spidermanImg from '../assets/spiderman.jpg';
+import dailyMix1Img from '../assets/Dailymix1.jpg';
+import dailyMix2Img from '../assets/Dailymix2.jpg';
+import dailyMix3Img from '../assets/Dailymix3.jpg';
+import dailyMix4Img from '../assets/Dailymix4.jpg';
+import dailyMix5Img from '../assets/Dailymix5.jpg';
 
 // Define track data
 const tracks = {
@@ -16,49 +28,49 @@ const tracks = {
     uri: 'spotify:track:7qiZfU4dY1lWllzX7mPBI3',
     title: 'Shape of You',
     artist: 'Ed Sheeran',
-    image: '/images/Likedsongs.jpg'
+    image: likedSongsImg
   },
   beatEasy: {
     uri: 'spotify:track:1mWdTewIgB3gtBM3TOSFhB',
     title: 'Blinding Lights',
     artist: 'The Weeknd',
-    image: '/images/BeatEasy.jpg'
+    image: beatEasyImg
   },
   metroBookin: {
     uri: 'spotify:track:3nqQXoyQOWXiESFLlDF1hG',
     title: 'Superhero',
     artist: 'Metro Boomin',
-    image: '/images/MetroBoomin.jpg'
+    image: metroBoominImg
   },
   northernLights: {
     uri: 'spotify:track:0VjIjW4GlUZAMYd2vXMi3b',
     title: 'Blinding Lights',
     artist: 'The Weeknd',
-    image: '/images/Northernlight.jpg'
+    image: northernLightImg
   },
   caughtInFire: {
     uri: 'spotify:track:7KXjTSCq5nL1LoYtL7XAwS',
     title: 'STAY',
     artist: 'The Kid LAROI',
-    image: '/images/CaughtinFire.jpg'
+    image: caughtInFireImg
   },
   somewhere: {
     uri: 'spotify:track:2LBqCSwhJGcFQeTHMVGwy3',
     title: 'Die For You',
     artist: 'The Weeknd',
-    image: '/images/SomeWhere.jpg'
+    image: someWhereImg
   },
   human: {
     uri: 'spotify:track:0e4HHoOy2TuYuHEgFKbBqT',
     title: 'Human',
     artist: 'Rag\'n\'Bone Man',
-    image: '/images/Human.jpg'
+    image: humanImg
   },
   spiderman: {
     uri: 'spotify:track:6nSwOQMpl1SoTZyj9Iv7VF',
     title: 'Sunflower',
     artist: 'Post Malone',
-    image: '/images/spiderman.jpg'
+    image: spidermanImg
   }
 };
 
@@ -67,31 +79,31 @@ const dailyMixes = [
     uri: 'spotify:track:0V3wPSX9ygBnCm8psDIegu',
     title: 'Anti-Hero',
     artist: 'Taylor Swift',
-    image: '/images/Dailymix1.jpg'
+    image: dailyMix1Img
   },
   {
     uri: 'spotify:track:4fouWK6XVHhzl78KzQ1UjL',
     title: 'MONEY',
     artist: 'LISA',
-    image: '/images/Dailymix2.jpg'
+    image: dailyMix2Img
   },
   {
     uri: 'spotify:track:3DarAbFujv6eYNliUTyqtz',
     title: 'Starboy',
     artist: 'The Weeknd',
-    image: '/images/Dailymix3.jpg'
+    image: dailyMix3Img
   },
   {
     uri: 'spotify:track:1zi7xx7UVEFkmKfv06H8x0',
     title: 'One Dance',
     artist: 'Drake',
-    image: '/images/Dailymix4.jpg'
+    image: dailyMix4Img
   },
   {
     uri: 'spotify:track:7qEHsqek33rTcFNT9PFqLf',
     title: 'Someone You Loved',
     artist: 'Lewis Capaldi',
-    image: '/images/Dailymix5.jpg'
+    image: dailyMix5Img
   }
 ];
 
@@ -99,7 +111,6 @@ export default function Home() {
   const [{ token }] = useStateProvider();
   const [isLoading, setIsLoading] = useState(true);
   const [activeDevice, setActiveDevice] = useState(null);
-  const [imageLoadErrors, setImageLoadErrors] = useState({});
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -127,10 +138,6 @@ export default function Home() {
     };
     if (token) getDevices();
   }, [token]);
-
-  const handleImageError = (trackId) => {
-    setImageLoadErrors(prev => ({ ...prev, [trackId]: true }));
-  };
 
   const playTrack = async (uri) => {
     if (!activeDevice) {
@@ -177,11 +184,7 @@ export default function Home() {
   const Card = ({ track, onClick }) => (
     <div className="card" onClick={onClick}>
       <div className="card-image-container">
-        <img 
-          src={imageLoadErrors[track.uri] ? defaultImage : track.image} 
-          alt={track.title}
-          onError={() => handleImageError(track.uri)}
-        />
+        <img src={track.image} alt={track.title} />
         <button className="play-button">
           <FaPlay />
         </button>

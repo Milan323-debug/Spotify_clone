@@ -10,34 +10,26 @@ import { FiRepeat } from "react-icons/fi";
 import { useStateProvider } from "../utils/StateProvider";
 import axios from "axios";
 import { reducerCases } from "../utils/Constants";
-
 export default function PlayerControls() {
   const [{ token, playerState }, dispatch] = useStateProvider();
 
   const changeState = async () => {
     const state = playerState ? "pause" : "play";
-    console.log(`Changing state to: ${state}`);
-    try {
-      await axios.put(
-        `https://api.spotify.com/v1/me/player/${state}`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      dispatch({
-        type: reducerCases.SET_PLAYER_STATE,
-        playerState: !playerState,
-      });
-      console.log(`Player state changed to: ${!playerState}`);
-    } catch (error) {
-      console.error("Error changing player state:", error);
-    }
+    await axios.put(
+      `https://api.spotify.com/v1/me/player/${state}`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    dispatch({
+      type: reducerCases.SET_PLAYER_STATE,
+      playerState: !playerState,
+    });
   };
-
   const changeTrack = async (type) => {
     await axios.post(
       `https://api.spotify.com/v1/me/player/${type}`,
@@ -71,7 +63,6 @@ export default function PlayerControls() {
       dispatch({ type: reducerCases.SET_PLAYING, currentPlaying: null });
     }
   };
-
   return (
     <Container>
       <div className="shuffle">

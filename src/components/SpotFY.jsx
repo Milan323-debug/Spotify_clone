@@ -256,67 +256,29 @@ const htmlContent = `
 </aside>
 
 
- <!-- Footer (Player) -->
-<footer class="player-footer">
-  <!-- LEFT SECTION: Song Info -->
-  <div class="player-left">
-    <img src="/images/WayIam.jpg" alt="Song Cover" class="song-cover" />
-    <div class="song-info">
-      <span class="song-title">Way I am</span>
-      <span class="song-artist">Anna Blue, Damien Dawn</span>
+  <!-- Footer (Player) -->
+  <footer class="player-footer">
+    <div class="player-controls">
+      <div class="player-left">
+        <img src="/images/WayIam.jpg" alt="Song Cover" class="song-cover" />
+        <div class="song-info">
+          <span class="song-title">Way I am</span>
+          <span class="song-artist">Anna Blue, Damien Dawn</span>
+        </div>
+      </div>
+      <div class="player-center">
+        <i class="fas fa-random"></i>
+        <i class="fas fa-step-backward"></i>
+        <i class="fas fa-play-circle"></i>
+        <i class="fas fa-step-forward"></i>
+        <i class="fas fa-repeat"></i>
+      </div>
+      <div class="player-right">
+        <i class="fas fa-volume-down"></i>
+        <input type="range" min="0" max="100" value="50" class="volume-slider"/>
+      </div>
     </div>
-    <!-- Optionally add a 'like' / 'heart' icon, etc. -->
-    <i class="far fa-heart heart-icon"></i>
-  </div>
-
-  <!-- CENTER SECTION: Playback Controls + Progress Bar -->
-  <div class="player-center">
-    <div class="controls">
-      <i class="fas fa-random control-icon" title="Shuffle"></i>
-      <i class="fas fa-step-backward control-icon" title="Previous"></i>
-      <i class="fas fa-play-circle control-icon play-pause-btn" title="Play/Pause"></i>
-      <i class="fas fa-step-forward control-icon" title="Next"></i>
-      <i class="fas fa-repeat control-icon" title="Repeat"></i>
-    </div>
-    <div class="progress-container">
-      <span class="current-time">0:00</span>
-      <input type="range" min="0" max="100" value="30" class="progress-bar" />
-      <span class="total-time">4:15</span>
-    </div>
-  </div>
-
-  <!-- RIGHT SECTION: Extra Controls -->
-  <div class="player-right">
-    <!-- E.g. queue icon, connect device, volume, etc. -->
-    <i class="fas fa-list-ol control-icon" title="Queue"></i>
-    <i class="fas fa-desktop control-icon" title="Connect to a device"></i>
-    <div class="volume-container">
-      <i class="fas fa-volume-down control-icon" title="Volume"></i>
-      <input type="range" min="0" max="100" value="50" class="volume-slider"/>
-    </div>
-  </div>
-</footer>
-
-<!-- Small Script to Toggle Play/Pause Icon -->
-<script>
-  const playPauseBtn = document.querySelector('.play-pause-btn');
-  let isPlaying = false;
-
-  playPauseBtn.addEventListener('click', () => {
-    isPlaying = !isPlaying;
-    // Toggle icon between play and pause
-    if (isPlaying) {
-      playPauseBtn.classList.remove('fa-play-circle');
-      playPauseBtn.classList.add('fa-pause-circle');
-      // Here you could trigger an actual audio playback if you have an audio element
-    } else {
-      playPauseBtn.classList.remove('fa-pause-circle');
-      playPauseBtn.classList.add('fa-play-circle');
-      // Pause the audio if you have an audio element
-    }
-  });
-</script>
-
+  </footer>
   <script>
     const resizer = document.querySelector('.resizer');
     const sidebar = document.querySelector('.hummingbird-section');
